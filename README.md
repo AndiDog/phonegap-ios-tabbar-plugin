@@ -13,6 +13,14 @@ Contributors
 
 See TabBar.m for the history.
 
+Versions
+--------
+
+Choose the right folder according to your Cordova version:
+
+- 2.0.0 (not developed anymore) for Cordova 2.0.0
+- 2.1.0, tested with Cordova 2.1.0 and 2.2.0
+
 Installing the plugin
 ---------------------
 
