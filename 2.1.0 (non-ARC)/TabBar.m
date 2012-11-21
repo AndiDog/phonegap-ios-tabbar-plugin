@@ -434,8 +434,13 @@
 
     NSString *itemName = [command.arguments objectAtIndex:0];
     UITabBarItem *item = [tabBarItems objectForKey:itemName];
-    if (item)
+    if(item)
+    {
+        // Not called automatically when selectItem is called manually
+        [self tabBar:tabBar didSelectItem:item];
+
         tabBar.selectedItem = item;
+    }
     else
         tabBar.selectedItem = nil;
 }
