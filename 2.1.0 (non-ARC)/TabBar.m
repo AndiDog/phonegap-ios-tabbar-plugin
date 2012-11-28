@@ -9,7 +9,7 @@
  Created by Michael Nachbaur on 13/04/09.
  Copyright 2009 Decaf Ninja Software. All rights reserved.
 
- API cleaned up and improved by Andreas Sommer (https://github.com/AndiDog/phonegap-plugins).
+ API cleaned up and improved by Andreas Sommer (https://github.com/AndiDog/phonegap-ios-tabbar-plugin).
  */
 
 #import <objc/runtime.h>

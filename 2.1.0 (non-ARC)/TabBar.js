@@ -4,7 +4,7 @@
     Copyright 2009 Decaf Ninja Software. All rights reserved.
     MIT licensed
 
-    API cleaned up and improved by Andreas Sommer (https://github.com/AndiDog/phonegap-plugins).
+    API cleaned up and improved by Andreas Sommer (https://github.com/AndiDog/phonegap-ios-tabbar-plugin).
 */
 
 function TabBar() {
