@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>iOS TabBar example</title>
+    </head>
+    <body>
+        <h1>iOS TabBar example</h1>
+
+        <p id="ready" style="text-align: center">deviceready not called yet</p>
+
+        <script type="text/javascript" src="cordova-2.4.0.js"></script>
+        <script type="text/javascript" src="js/TabBar.js"></script>
+        <script type="text/javascript">
+            document.addEventListener("deviceready", function() {
+                console.log("PhoneGap ready");
+                var readyElement = document.getElementById("ready");
+                readyElement.innerHTML = "deviceready called but not finished";
+
+                var tabBar = cordova.require("cordova/plugin/iOSTabBar");
+
+                tabBar.init();
+
+                tabBar.create({selectedImageTintColorRgba: "255,40,0,255"});
+
+                tabBar.createItem("contacts", "Unused, iOS replaces this text by Contacts", "tabButton:Contacts");
+                tabBar.createItem("recents", "Unused, iOS replaces this text by Recents", "tabButton:Recents", {
+                    onSelect: function() {
+                        alert("Recents tab selected");
+                    }
+                });
+
+                tabBar.show();
+                tabBar.showItems("contacts", "recents");
+
+                window.addEventListener("resize", function() { tabBar.resize() }, false);
+
+                readyElement.innerHTML = "deviceready finished";
+            }, false);
+        </script>
+    </body>
+</html>

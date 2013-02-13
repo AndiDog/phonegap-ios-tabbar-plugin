@@ -6,7 +6,9 @@ This plugin lets you create and control a native tab bar.
 License
 -------
 
-[MIT license](http://www.opensource.org/licenses/mit-license.html)
+Parts that are not marked otherwise are licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.html).
+
+PhoneGap itself (parts of it included in this repository as test project dependency) is licensed under the [Apache License](http://phonegap.com/about/license/).
 
 Contributors
 ------------
@@ -19,14 +21,14 @@ Versions
 Choose the right folder according to your Cordova version:
 
 - 2.0.0 (not developed anymore) for Cordova 2.0.0
-- 2.1.0, tested with Cordova 2.1.0 and 2.2.0
+- 2.1.0 (not developed anymore), tested with Cordova 2.1.0 and 2.2.0
+- 2.4.0, tested with Cordova 2.4.0
 
 Installing the plugin
 ---------------------
 
-- Copy *.m and *.h files to your project's "Plugins" folder (should already exist and contain a README file if you used the Cordova project template)
-- They have to be added to the project as well, so drag them from the "Plugins" folder (in Finder) to the same folder (in Xcode) and select to create references
-- Open "Resources/Cordova.plist" and under "Plugins", add a key with the plugin name "TabBar" and a string value of "TabBar"
+- Drag *.m and *.h files to your project's "Plugins" group in Xcode and choose to copy the files to the project
+- Open "config.xml" and under "plugins", add a key with the plugin name "TabBar" and a string value of "TabBar"
 
 Note regarding the tab bar
 --------------------------
@@ -45,11 +47,13 @@ In order to use the [tab bar plugin](https://github.com/AndiDog/phonegap-plugins
     document.addEventListener("deviceready", function() {
         console.log("Cordova ready")
 
+        var tabBar = cordova.require("cordova/plugin/iOSTabBar");
+
         plugins.navigationBar.init()
-        plugins.tabBar.init()
+        tabBar.init()
 
         plugins.navigationBar.create()
-        plugins.tabBar.create()
+        tabBar.create()
 
         // ...
 
@@ -63,27 +67,29 @@ This example shows how to use the tab bar:
     document.addEventListener("deviceready", function() {
         console.log("PhoneGap ready")
 
-        plugins.tabBar.init()
+        var tabBar = cordova.require("cordova/plugin/iOSTabBar");
 
-        plugins.tabBar.create()
+        tabBar.init()
+
+        tabBar.create()
         // or with an orange tint:
-        plugins.tabBar.create({selectedImageTintColorRgba: '255,40,0,255'})
+        tabBar.create({selectedImageTintColorRgba: "255,40,0,255"})
 
-        plugins.tabBar.createItem("contacts", "Unused, iOS replaces this text by Contacts", "tabButton:Contacts")
-        plugins.tabBar.createItem("recents", "Unused, iOS replaces this text by Recents", "tabButton:Recents")
+        tabBar.createItem("contacts", "Unused, iOS replaces this text by Contacts", "tabButton:Contacts")
+        tabBar.createItem("recents", "Unused, iOS replaces this text by Recents", "tabButton:Recents")
 
         // Example with selection callback
-        plugins.tabBar.createItem("another", "Some text", "/www/your-own-image.png", {
+        tabBar.createItem("another", "Some text", "/www/your-own-image.png", {
             onSelect: function() {
                 alert("another tab selected")
             }
         })
 
-        plugins.tabBar.show()
-        // Or with custom style (defaults to 49px height, positioned at bottom): plugins.tabBar.show({height: 80, position: 'top'})
-        plugins.tabBar.showItems("contacts", "recents", "another")
+        tabBar.show()
+        // Or with custom style (defaults to 49px height, positioned at bottom): tabBar.show({height: 80, position: "top"})
+        tabBar.showItems("contacts", "recents", "another")
 
-        window.addEventListener("resize", function() { plugins.tabBar.resize() }, false)
+        window.addEventListener("resize", function() { tabBar.resize() }, false)
     }, false)
 
 Retina images
@@ -91,13 +97,18 @@ Retina images
 
 You can also have different images for the normal and retina quality like "image.png" and "image@2x.png". The code to assign the image would be:
 
-    plugins.tabBar.createItem("home", "Home", "image.png", {
+    tabBar.createItem("home", "Home", "image.png", {
         onSelect: function() {
             alert("tab selected")
         }
     })
 
+Known issues
+------------
+
+Layouting problems still to be solved.
+
 Reporting issues or requests for improvement
 --------------------------------------------
 
-Please report problems on [my GitHub fork of phonegap-plugins](https://github.com/AndiDog/phonegap-plugins).
+Please report problems on the [GitHub repository](https://github.com/AndiDog/phonegap-ios-tabbar-plugin/issues).
