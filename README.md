@@ -67,7 +67,7 @@ This example shows how to use the tab bar:
     document.addEventListener("deviceready", function() {
         console.log("PhoneGap ready")
 
-        var tabBar = cordova.require("cordova/plugin/iOSTabBar");
+        var tabBar = cordova.require("cordova/plugin/iOSTabBar")
 
         tabBar.init()
 
