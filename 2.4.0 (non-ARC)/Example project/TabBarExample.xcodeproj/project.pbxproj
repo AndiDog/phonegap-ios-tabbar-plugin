@@ -421,7 +421,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/bin/sh -e";
-			shellScript = "# Copy latest JavaScript file to our assets (in a real project, you would just copy it once, but this Xcode project is actually used for development of the plugin!)\ncp ../Plugin\\ code/TabBar.js www/js";
+			shellScript = "# Copy latest JavaScript file to our assets (in a real project, you would just copy it once, but this Xcode project is actually used for development of the plugin!)\necho \"// AUTOMATICALLY COPIED, DO NOT CHANGE. SEE TEST PROJECT BUILD PHASES!\n\n\n\n\n\" > www/js/TabBar.js\ncat ../Plugin\\ code/TabBar.js >> www/js/TabBar.js";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
