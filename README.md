@@ -22,7 +22,7 @@ Choose the right folder according to your Cordova version:
 
 - 2.0.0 (not developed anymore) for Cordova 2.0.0
 - 2.1.0 (not developed anymore), tested with Cordova 2.1.0 and 2.2.0
-- 2.4.0, tested with Cordova 2.4.0
+- 2.4.0, tested with Cordova 2.4.0 but should also work older versions (2.1.0 and newer)
 
 Installing the plugin
 ---------------------
@@ -36,8 +36,8 @@ Note regarding the tab bar
 Don't forget to add an event handler for orientation changes as follows:
 
     window.addEventListener("resize", function() {
-        plugins.tabBar.resize();
-    ), false);
+        plugins.tabBar.resize()
+    ), false)
 
 Using the tab bar and navigation bar plugin together
 ----------------------------------------------------
@@ -47,7 +47,7 @@ In order to use the [tab bar plugin](https://github.com/AndiDog/phonegap-plugins
     document.addEventListener("deviceready", function() {
         console.log("Cordova ready")
 
-        var tabBar = cordova.require("cordova/plugin/iOSTabBar");
+        var tabBar = cordova.require("cordova/plugin/iOSTabBar")
 
         plugins.navigationBar.init()
         tabBar.init()
