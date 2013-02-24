@@ -36,7 +36,8 @@ Note regarding the tab bar
 Don't forget to add an event handler for orientation changes as follows:
 
     window.addEventListener("resize", function() {
-        plugins.tabBar.resize()
+        var tabBar = cordova.require("cordova/plugin/iOSTabBar")
+        tabBar.resize()
     ), false)
 
 Using the tab bar and navigation bar plugin together
@@ -48,11 +49,12 @@ In order to use the [tab bar plugin](https://github.com/AndiDog/phonegap-plugins
         console.log("Cordova ready")
 
         var tabBar = cordova.require("cordova/plugin/iOSTabBar")
+        var navBar = cordova.require("cordova/plugin/iOSNavigationBar")
 
-        plugins.navigationBar.init()
+        navBar.init()
         tabBar.init()
 
-        plugins.navigationBar.create()
+        navBar.create()
         tabBar.create()
 
         // ...
