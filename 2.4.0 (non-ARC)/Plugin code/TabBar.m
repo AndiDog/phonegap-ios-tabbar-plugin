@@ -137,9 +137,11 @@
             top += tabBarHeight;
     }
 
-    CGRect webViewFrame = CGRectMake(left, top, right - left, bottom - top);
-
-    [self.webView setFrame:webViewFrame];
+    const CGRect parentSize = self.webView.superview.bounds;
+    left = parentSize.origin.x; // will be 0
+    top = parentSize.origin.y; // will be 0
+    right = left + parentSize.size.width;
+    bottom = top + parentSize.size.height;
 
     // -----------------------------------------------------------------------------
 
@@ -148,10 +150,19 @@
     if(tabBarShown)
     {
         if(tabBarAtBottom)
+        {
+            bottom -= tabBarHeight;
             [tabBar setFrame:CGRectMake(left, bottom, right - left, tabBarHeight)];
+        }
         else
-            [tabBar setFrame:CGRectMake(left, originalWebViewFrame.origin.y, right - left, tabBarHeight)];
+        {
+            [tabBar setFrame:CGRectMake(left, top, right - left, tabBarHeight)];
+            top += tabBarHeight;
+        }
     }
+
+    // Common for both plugins:
+    [self.webView setFrame:CGRectMake(left, top, right - left, bottom - top)];
 }
 
 - (UIColor*)colorStringToColor:(NSString*)colorStr
