@@ -36,39 +36,9 @@
         // This code block is the same for both the navigation and tab bar plugin!
         // -----------------------------------------------------------------------
 
-        // The original web view frame must be retrieved here. On iPhone, it would be 0,0,320,460 for example. Since
-        // Cordova seems to initialize plugins on the first call, there is a plugin method init() that has to be called
-        // in order to make Cordova call *this* method. If someone forgets the init() call and uses the navigation bar
-        // and tab bar plugins together, these values won't be the original web view frame and layout will be wrong.
-        originalWebViewFrame = theWebView.frame;
-        UIApplication *app = [UIApplication sharedApplication];
-
-        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        switch (orientation)
-        {
-            case UIInterfaceOrientationPortrait:
-            case UIInterfaceOrientationPortraitUpsideDown:
-                break;
-            case UIInterfaceOrientationLandscapeLeft:
-            case UIInterfaceOrientationLandscapeRight:
-            {
-                float statusBarHeight = 0;
-                if(!app.statusBarHidden)
-                    statusBarHeight = MIN(app.statusBarFrame.size.width, app.statusBarFrame.size.height);
-
-                originalWebViewFrame = CGRectMake(originalWebViewFrame.origin.y,
-                                                  originalWebViewFrame.origin.x,
-                                                  originalWebViewFrame.size.height + statusBarHeight,
-                                                  originalWebViewFrame.size.width - statusBarHeight);
-                break;
-            }
-            default:
-                NSLog(@"Unknown orientation: %d", orientation);
-                break;
-        }
-
         navBarHeight = 44.0f;
         tabBarHeight = 49.0f;
+
         // -----------------------------------------------------------------------
 
         tabBarAtBottom = true;
@@ -104,44 +74,11 @@
     // IMPORTANT: Below code is the same in both the navigation and tab bar plugins!
     // -----------------------------------------------------------------------------
 
-    CGFloat left = originalWebViewFrame.origin.x;
-    CGFloat right = left + originalWebViewFrame.size.width;
-    CGFloat top = originalWebViewFrame.origin.y;
-    CGFloat bottom = top + originalWebViewFrame.size.height;
-
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    switch (orientation)
-    {
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationPortraitUpsideDown:
-            // No need to change width/height from original frame
-            break;
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-            right = left + originalWebViewFrame.size.height + 20.0f;
-            bottom = top + originalWebViewFrame.size.width - 20.0f;
-            break;
-        default:
-            NSLog(@"Unknown orientation: %d", orientation);
-            break;
-    }
-
-    if(navBarShown)
-        top += navBarHeight;
-
-    if(tabBarShown)
-    {
-        if(tabBarAtBottom)
-            bottom -= tabBarHeight;
-        else
-            top += tabBarHeight;
-    }
-
     const CGRect parentSize = self.webView.superview.bounds;
-    left = parentSize.origin.x; // will be 0
-    top = parentSize.origin.y; // will be 0
-    right = left + parentSize.size.width;
-    bottom = top + parentSize.size.height;
+    const CGFloat left = parentSize.origin.x; // will be 0
+    CGFloat top = parentSize.origin.y; // will be 0
+    const CGFloat right = left + parentSize.size.width;
+    CGFloat bottom = top + parentSize.size.height;
 
     // -----------------------------------------------------------------------------
 
@@ -161,7 +98,12 @@
         }
     }
 
-    // Common for both plugins:
+    // If tab/navigation bar plugin used together and !tabBarAtBottom, the tab bar is placed above!
+    if(navBarShown)
+        top += navBarHeight;
+
+    // NOTE: Common code again
+
     [self.webView setFrame:CGRectMake(left, top, right - left, bottom - top)];
 }
 
